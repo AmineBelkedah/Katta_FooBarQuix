@@ -16,7 +16,7 @@ public class TestFooBarQix {
 	@Before
 	public void init() {
 
-		fooBarQix = new FooBarQix(0, 100);
+		fooBarQix = new FooBarQix(1, 100);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -42,13 +42,6 @@ public class TestFooBarQix {
 	public void when_Divisible_by_5() {
 
 		assertEquals("Bar", fooBarQix.convertToFooBarQix(10));
-
-	}
-
-	@Test
-	public void when_Divisible_by_7() {
-
-		assertEquals("Qix", fooBarQix.convertToFooBarQix(14));
 
 	}
 
