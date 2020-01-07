@@ -17,13 +17,25 @@ import java.util.stream.Stream;
  */
 public class FooBarQix {
 
+	/**
+	 * The start of the sequence
+	 */
 	private int start;
 
+	/**
+	 * The end of the sequence
+	 */
 	private int end;
 
-	private List<Integer> divisorsList = Arrays.asList(3, 5);
+	/**
+	 * List of divisors
+	 */
+	private final List<Integer> divisorsList = Arrays.asList(3, 5);
 
-	private Map<Integer, String> patternsMap = Collections.unmodifiableMap(
+	/**
+	 * Map of String patterns
+	 */
+	private final Map<Integer, String> patternsMap = Collections.unmodifiableMap(
 			Stream.of(new SimpleEntry<>(3, "Foo"), new SimpleEntry<>(5, "Bar"), new SimpleEntry<>(7, "Qix"))
 					.collect(Collectors.toMap((e) -> e.getKey(), (e) -> e.getValue())));
 
@@ -48,6 +60,12 @@ public class FooBarQix {
 		return end;
 	}
 
+	/**
+	 * Handle all divisibility of a number
+	 * 
+	 * @param number
+	 * @return
+	 */
 	public String handleDivisibilty(int number) {
 
 		return this.divisorsList.stream().map(divisor -> number % divisor == 0 ? patternsMap.get(divisor) : "")
@@ -55,6 +73,8 @@ public class FooBarQix {
 	}
 
 	/**
+	 * Handle contained figures of a number
+	 * 
 	 * @param number
 	 * @return
 	 */
@@ -64,14 +84,23 @@ public class FooBarQix {
 				.map(this.patternsMap::get).filter(Objects::nonNull).reduce("", String::concat);
 	}
 
+	/**
+	 * Convert a number to its FooBarQix corresponding String
+	 * 
+	 * @param number
+	 * @return
+	 */
 	public String convertToFooBarQix(int number) {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(handleDivisibilty(number)).append(handleContains(number));
 
-		return sb.toString();
+		return sb.length() == 0 ? String.valueOf(number) : sb.toString();
 	}
 
+	/**
+	 * Print complete sequence of converted numbers from start to end
+	 */
 	public void printSequence() {
 
 		IntStream.rangeClosed(start, end).boxed().map(this::convertToFooBarQix).forEach(System.out::println);
